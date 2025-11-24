@@ -26,17 +26,20 @@ Resources:
             Resource: !Sub "${FrontendBucket.Arn}/*"
 
   CloudFrontDistribution:
-    Type: AWS::CloudFront::Distribution
-    Properties:
-      DistributionConfig:
-        Enabled: true
-        DefaultRootObject: index.html
-        Origins:
-          - Id: S3Origin
-            DomainName: !GetAtt FrontendBucket.RegionalDomainName
-            S3OriginConfig: {}
-        DefaultCacheBehavior:
-          TargetOriginId: S3Origin
-          ViewerProtocolPolicy: redirect-to-https
-          AllowedMethods: ["GET", "HEAD"]
-          CachedMethods: ["GET", "HEAD"]
+  Type: AWS::CloudFront::Distribution
+  Properties:
+    DistributionConfig:
+      Enabled: true
+      DefaultRootObject: index.html
+      Origins:
+        - Id: S3Origin
+          DomainName: !GetAtt FrontendBucket.RegionalDomainName
+          S3OriginConfig: {}
+      DefaultCacheBehavior:
+        TargetOriginId: S3Origin
+        ViewerProtocolPolicy: redirect-to-https
+        AllowedMethods: ["GET", "HEAD"]
+        CachedMethods: ["GET", "HEAD"]
+        ForwardedValues:
+          QueryString: false
+      PriceClass: PriceClass_100
