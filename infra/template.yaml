@@ -25,7 +25,7 @@ Resources:
             Action: s3:GetObject
             Resource: !Sub "${FrontendBucket.Arn}/*"
 
-  CloudFrontDistribution:   # ← richtig eingerückt
+  CloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
@@ -42,4 +42,11 @@ Resources:
           CachedMethods: ["GET", "HEAD"]
           ForwardedValues:
             QueryString: false
-      PriceClass: PriceClass_100
+        PriceClass: PriceClass_100   # ← WICHTIG: muss hier sein!
+
+Outputs:
+  BucketName:
+    Value: !Ref FrontendBucket
+
+  CloudFrontId:
+    Value: !Ref CloudFrontDistribution
