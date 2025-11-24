@@ -20,12 +20,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
 
-      - name: Deploy CloudFormation
-        run: |
-          aws cloudformation deploy \
-            --template-file infra/template.yaml \
-            --stack-name simple-frontend-stack \
-            --capabilities CAPABILITY_NAMED_IAM
+      ## Nur initial einmal deployen... TODO Workaround finden!
+      #- name: Deploy CloudFormation
+        #run: |
+          #aws cloudformation deploy \
+            #--template-file infra/template.yaml \
+            #--stack-name simple-frontend-stack \
+            #--capabilities CAPABILITY_NAMED_IAM
 
       - name: Sync files to S3
         run: |
